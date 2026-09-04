@@ -2,15 +2,33 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>正在開啟 Google 地圖...</title>
   <script>
     window.onload = function() {
-      var mapUrl = "https://maps.app.goo.gl/H9oRNLH7WJ4KQpPq8"; 
-      window.location.href = mapUrl;
+      // 您的 Google 地圖長網址
+      var mapUrl = "https://maps.app.goo.gl/5gxNMkPWhvXLb4mG8";
+      // 檢查網址是否帶有 LINE 強制外跳參數
+      if (window.location.search.indexOf("openExternalBrowser=1") === -1) {
+        // 加上 openExternalBrowser=1 參數強制 LINE 使用手機預設瀏覽器開啟
+        var externalUrl = window.location.href + (window.location.search ? "&" : "?") + "openExternalBrowser=1";
+        window.location.href = externalUrl;
+      } else {
+        // 已經成功外跳至原生瀏覽器，直接轉址到 Google 地圖
+        window.location.href = mapUrl;
+      }
     };
   </script>
 </head>
 <body>
-  <p style="text-align:center; margin-top:50px;">正在為您開啟 Google 地圖，請稍候...</p>
+  <div style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+    <p>正在為您跳轉至 Google 地圖...</p>
+    <p style="font-size: 14px; color: #666;">如果沒有自動跳轉，請點擊下方按鈕：</p>
+    <a id="manualLink" href="#" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">開啟 Google 地圖</a>
+  </div>
+  <script>
+    // 備用按鈕連結
+    document.getElementById("manualLink").href = "https://maps.app.goo.gl/5gxNMkPWhvXLb4mG8";
+  </script>
 </body>
 </html>
